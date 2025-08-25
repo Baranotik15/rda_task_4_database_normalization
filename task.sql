@@ -1,3 +1,6 @@
+-- Drop existing database if exists (for idempotency)
+DROP DATABASE IF EXISTS ShopDB;
+
 -- Create database and tables
 
 CREATE DATABASE ShopDB;
