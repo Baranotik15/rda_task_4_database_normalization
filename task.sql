@@ -4,31 +4,33 @@ CREATE DATABASE ShopDB;
 USE ShopDB;
 
 CREATE TABLE Countries (
-    ID INT,
-    Name VARCHAR(50),
+    ID INT NOT NULL,
+    Name VARCHAR(50) NOT NULL,
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE Products (
-    ID INT,
-    ProductName VARCHAR(50),
-    PRIMARY KEY (ID)
+    ID INT NOT NULL,
+    ProductName VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID),
+    UNIQUE (ProductName)
 );
 
 CREATE TABLE Warehouses (
-    ID INT,
-    WarehouseName VARCHAR(50),
-    WarehouseAddress VARCHAR(50),
-    CountryID INT,
+    ID INT NOT NULL,
+    WarehouseName VARCHAR(50) NOT NULL,
+    WarehouseAddress VARCHAR(50) NOT NULL,
+    CountryID INT NOT NULL,
     FOREIGN KEY (CountryID) REFERENCES Countries(ID) ON DELETE NO ACTION,
-    PRIMARY KEY (ID)
+    PRIMARY KEY (ID),
+    UNIQUE (WarehouseName)
 );
 
 CREATE TABLE ProductInventory (
-    ID INT,
-    ProductID INT,
-    WarehouseAmount INT,
-    WarehouseID INT,
+    ID INT NOT NULL,
+    ProductID INT NOT NULL,
+    WarehouseAmount INT NOT NULL CHECK (WarehouseAmount >= 0),
+    WarehouseID INT NOT NULL,
     FOREIGN KEY (ProductID) REFERENCES Products(ID) ON DELETE NO ACTION,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(ID) ON DELETE NO ACTION,
     PRIMARY KEY (ID)
